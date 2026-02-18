@@ -1,0 +1,637 @@
+// PresupuestosIA - Schema de Base de Datos
+// Documentación: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum FlowType {
+  CONSULTORIA
+  DIAGNOSTICO
+}
+
+enum ClientStatus {
+  NUEVO
+  EN_PROCESO
+  PENDIENTE_CONSULTORIA  // Presupuesto de consultoría generado, esperando realizar consultoría
+  PRESUPUESTADO
+  CERRADO
+  ARCHIVADO
+}
+
+enum BudgetStatus {
+  BORRADOR
+  ENVIADO
+  ACEPTADO
+  RECHAZADO
+  EXPIRADO
+}
+
+enum DiagnosticRecommendation {
+  PILOTO
+  DESARROLLO_COMPLETO
+  PIVOTAR_CONSULTORIA
+}
+
+enum MaintenanceType {
+  HORAS           // Bolsa de horas mensuales
+  TOKENS          // Consumo de tokens de IA
+  INCIDENCIAS     // Por número de incidencias
+  SLA             // Service Level Agreement con tiempos de respuesta
+}
+
+// Departamentos para organizar puntos normalizados
+enum Department {
+  MARKETING
+  ATENCION_CLIENTE
+  INFRAESTRUCTURA
+  NEGOCIO
+  OTRO
+}
+
+// Estado de un punto normalizado
+enum PointStatus {
+  PENDIENTE       // Recién extraído, sin procesar
+  MATCHED         // Correlacionado con producto del catálogo
+  UNKNOWN         // Sin producto, requiere investigación
+  VALIDATED       // Validado por el usuario
+  REJECTED        // Rechazado por el usuario
+}
+
+// Estado del agente orquestador
+enum AgentState {
+  INICIO          // Esperando notas de primera reunión
+  CLASIFICANDO    // Analizando si es consultoría o diagnóstico
+  DECIDIDO        // Usuario ha elegido tipo de flujo
+  NORMALIZANDO    // Extrayendo puntos de las notas
+  MATCHING        // Correlacionando con catálogo
+  INVESTIGANDO    // Buscando info para incógnitas
+  CLARIFICANDO    // Haciendo preguntas al usuario
+  GENERANDO       // Generando presupuesto final
+  COMPLETADO      // Presupuesto generado
+}
+
+// Estado del proceso de consultoría/diagnóstico
+enum ConsultationStatus {
+  EN_PROGRESO     // Proceso activo
+  LISTO_PRESUPUESTO // Todas las reuniones completadas, listo para generar
+  PRESUPUESTADO   // Presupuesto generado
+  ARCHIVADO       // Proceso archivado
+}
+
+// Estado de una reunión
+enum MeetingStatus {
+  SUGERIDA        // Sugerida por IA, pendiente de confirmar
+  PENDIENTE       // Confirmada, pendiente de realizar
+  PROGRAMADA      // Con fecha asignada
+  COMPLETADA      // Realizada, con notas
+  CANCELADA       // Cancelada
+}
+
+// ============================================
+// MODELOS PRINCIPALES
+// ============================================
+
+// Cliente
+model Client {
+  id        String       @id @default(cuid())
+  name      String
+  company   String?
+  email     String?
+  phone     String?
+  notes     String?      @db.Text
+  flowType  FlowType?
+  status    ClientStatus @default(NUEVO)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  // Relaciones principales
+  budgets         Budget[]
+  aiActions       AIAction[]
+  consultations   Consultation[]  // NUEVO: Procesos de consultoría/diagnóstico
+  
+  // Sistema de agentes (legacy - mantener por compatibilidad)
+  threadContext   ThreadContext?
+  meetingVersions MeetingVersion[]
+
+  @@map("clients")
+}
+
+// Producto del catálogo
+model Product {
+  id                  String   @id @default(cuid())
+  name                String
+  internalReference   String?  @unique // Ej: INT-TYPEFORM
+  category            String?  // Ej: Services > Integraciones
+  descriptionPublic   String?  @db.Text
+  descriptionInternal String?  @db.Text
+  price               Decimal  @db.Decimal(10, 2)
+  cost                Decimal? @db.Decimal(10, 2)
+  estimatedHours      Decimal? @db.Decimal(6, 2)
+  unitOfMeasure       String?  // Ej: Unidad (formulario), Hora, Mes
+  tags                String[]
+  embedding           Float[]
+  isActive            Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  budgetItems       BudgetItem[]
+  productMatches    ProductMatch[]
+  suggestedProducts SuggestedProduct[]  // NUEVO: Sugerencias en consultas
+
+  @@map("products")
+}
+
+// Presupuesto
+model Budget {
+  id       String       @id @default(cuid())
+  clientId String
+  client   Client       @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  version  Int          @default(1)
+  status   BudgetStatus @default(BORRADOR)
+
+  // Contenido
+  summary     String?   @db.Text
+  scope       String?   @db.Text
+  assumptions String?   @db.Text
+  risks       String?   @db.Text
+  validUntil  DateTime?
+
+  // Totales calculados
+  subtotal Decimal @db.Decimal(10, 2) @default(0)
+  discount Decimal @db.Decimal(10, 2) @default(0)
+  taxes    Decimal @db.Decimal(10, 2) @default(0)
+  total    Decimal @db.Decimal(10, 2) @default(0)
+
+  // Mantenimiento
+  maintenanceType    MaintenanceType?
+  maintenanceTokens  Int?
+  maintenanceHours   Decimal? @db.Decimal(6, 2)
+  maintenanceMonthly Decimal? @db.Decimal(10, 2)
+  maintenanceSLA     String?  // Para SLA: "8h respuesta, 24h resolución"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items                  BudgetItem[]
+  versions               BudgetVersion[]
+  aiActions              AIAction[]
+  clarificationQuestions ClarificationQuestion[]
+
+  @@map("budgets")
+}
+
+// Item de presupuesto
+model BudgetItem {
+  id       String  @id @default(cuid())
+  budgetId String
+  budget   Budget  @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+
+  // Puede ser producto existente o custom
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+
+  // Datos del item
+  name        String
+  description String?  @db.Text
+  quantity    Int      @default(1)
+  unitPrice   Decimal  @db.Decimal(10, 2)
+
+  // Estimaciones (para items custom)
+  hoursMin    Decimal? @db.Decimal(6, 2)
+  hoursMed    Decimal? @db.Decimal(6, 2)
+  hoursMax    Decimal? @db.Decimal(6, 2)
+  assumptions String?  @db.Text
+  risks       String?  @db.Text
+
+  // Generado por IA
+  aiGenerated Boolean @default(false)
+  aiReasoning String? @db.Text
+
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("budget_items")
+}
+
+// Versionado de presupuestos
+model BudgetVersion {
+  id        String   @id @default(cuid())
+  budgetId  String
+  budget    Budget   @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  version   Int
+  snapshot  Json
+  createdAt DateTime @default(now())
+  createdBy String?
+
+  @@map("budget_versions")
+}
+
+// ============================================
+// SISTEMA DE AGENTES IA
+// ============================================
+
+// Contexto del thread de IA por cliente
+model ThreadContext {
+  id        String     @id @default(cuid())
+  clientId  String     @unique
+  client    Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  // Estado del agente
+  state     AgentState @default(INICIO)
+  flowType  FlowType?  // Consultoría o Diagnóstico (cuando se decide)
+  
+  // Historial de conversación para contexto
+  history   Json       @default("[]") // Array de mensajes
+  
+  // Metadata
+  lastAgentRun   DateTime?
+  totalTokensUsed Int      @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("thread_contexts")
+}
+
+// Versión de reunión (para consultoría con múltiples reuniones)
+model MeetingVersion {
+  id        String   @id @default(cuid())
+  clientId  String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  version   Int      @default(1) // Número de versión/reunión
+  title     String?  // Ej: "Reunión con Marketing", "Reunión con IT"
+  rawNotes  String   @db.Text // Notas originales
+  
+  // Estado de normalización
+  isNormalized Boolean @default(false)
+  normalizedAt DateTime?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Puntos extraídos de esta reunión
+  normalizedPoints NormalizedPoint[]
+
+  @@unique([clientId, version])
+  @@map("meeting_versions")
+}
+
+// Punto normalizado extraído de las notas
+model NormalizedPoint {
+  id               String          @id @default(cuid())
+  meetingVersionId String
+  meetingVersion   MeetingVersion  @relation(fields: [meetingVersionId], references: [id], onDelete: Cascade)
+  
+  // Contenido
+  description      String          @db.Text // Descripción del punto
+  department       Department      @default(OTRO)
+  status           PointStatus     @default(PENDIENTE)
+  
+  // Prioridad detectada por IA
+  priority         Int             @default(0) // 0=normal, 1=alta, 2=crítica
+  
+  // Metadata IA
+  aiConfidence     Float?          // Confianza del match 0-1
+  aiReasoning      String?         @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  productMatch ProductMatch?
+  unknownItem  UnknownItem?
+
+  @@map("normalized_points")
+}
+
+// Correlación entre punto normalizado y producto del catálogo
+model ProductMatch {
+  id                String          @id @default(cuid())
+  normalizedPointId String          @unique
+  normalizedPoint   NormalizedPoint @relation(fields: [normalizedPointId], references: [id], onDelete: Cascade)
+  productId         String
+  product           Product         @relation(fields: [productId], references: [id])
+  
+  // Confianza del match
+  confidence        Float           @default(0) // 0-1
+  
+  // Validación del usuario
+  isValidated       Boolean         @default(false)
+  validatedAt       DateTime?
+  
+  // Si el usuario rechazó el match
+  isRejected        Boolean         @default(false)
+  rejectionReason   String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product_matches")
+}
+
+// Punto sin producto en catálogo (incógnita)
+model UnknownItem {
+  id                String          @id @default(cuid())
+  normalizedPointId String          @unique
+  normalizedPoint   NormalizedPoint @relation(fields: [normalizedPointId], references: [id], onDelete: Cascade)
+  
+  // Investigación web
+  webResearch       String?         @db.Text // Resumen de la búsqueda
+  webSources        String[]        // URLs de fuentes consultadas
+  
+  // Estimación
+  estimatedHours    Decimal?        @db.Decimal(6, 2)
+  estimatedPrice    Decimal?        @db.Decimal(10, 2)
+  estimationReason  String?         @db.Text // Justificación de la IA
+  
+  // Similitud con productos existentes
+  similarProductIds String[]        // IDs de productos similares
+  
+  // Validación del usuario
+  isApproved        Boolean         @default(false)
+  userAdjustedPrice Decimal?        @db.Decimal(10, 2) // Si el usuario ajusta
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("unknown_items")
+}
+
+// Pregunta clarificadora generada por IA
+model ClarificationQuestion {
+  id        String  @id @default(cuid())
+  
+  // Puede pertenecer a Budget o Consultation
+  budgetId       String?
+  budget         Budget?       @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  consultationId String?
+  consultation   Consultation? @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  
+  // Punto clave relacionado (para consultation)
+  keyPointId     String?
+  
+  // Pregunta
+  question          String   @db.Text
+  context           String?  @db.Text  // Contexto de por qué se hace esta pregunta
+  suggestedAnswers  String[] // Respuestas sugeridas por IA
+  priority          String   @default("medium")  // high, medium, low
+  
+  // Respuesta del usuario
+  answer            String?  @db.Text
+  answeredAt        DateTime?
+  isAnswered        Boolean  @default(false)
+  
+  // Impacto en el proyecto
+  impactArea        String?  // pricing, scope, timeline, technical
+  
+  // Orden de la pregunta
+  order             Int      @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("clarification_questions")
+}
+
+// ============================================
+// SISTEMA DE CONSULTORÍA v2
+// ============================================
+
+// Proceso de consultoría o diagnóstico (agrupa todo)
+model Consultation {
+  id        String             @id @default(cuid())
+  clientId  String
+  client    Client             @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  // Tipo y estado
+  type      FlowType           // CONSULTORIA | DIAGNOSTICO
+  status    ConsultationStatus @default(EN_PROGRESO)
+  
+  // Organigrama
+  orgChartFileUrl  String?     // URL del archivo subido (PDF/imagen)
+  orgChartFileName String?     // Nombre original del archivo
+  orgChartData     Json?       // Estructura extraída por IA: {departments: [], people: []}
+  
+  // Guión general de la consultoría (no técnico, para comerciales)
+  generalScript    String?     @db.Text
+  
+  // Notas iniciales (primera reunión)
+  initialNotes     String?     @db.Text
+  
+  // Resumen ejecutivo generado por IA
+  executiveSummary String?     @db.Text
+  
+  // Metadata
+  totalTokensUsed  Int         @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  meetings                Meeting[]
+  keyPoints               KeyPoint[]
+  suggestedProducts       SuggestedProduct[]
+  clarificationQuestions  ClarificationQuestion[]
+  unknownInvestigations   UnknownInvestigation[]
+  budgetId                String?    // Presupuesto generado (cuando esté listo)
+
+  @@map("consultations")
+}
+
+// Reunión dentro del proceso de consultoría
+model Meeting {
+  id             String        @id @default(cuid())
+  consultationId String
+  consultation   Consultation  @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  
+  // Datos de la reunión
+  title          String        // "Reunión con Marketing - Sesión 1"
+  description    String?       @db.Text
+  attendees      String[]      // Nombres de las personas del organigrama
+  department     Department?   // Departamento principal
+  status         MeetingStatus @default(PENDIENTE)
+  
+  // Origen
+  suggestedByAI  Boolean       @default(false) // true si la sugirió la IA
+  
+  // Guión pre-reunión (generado por IA)
+  script         String?       @db.Text  // Qué temas cubrir, cómo abordarlos
+  questionsToAsk String[]      // Preguntas sugeridas para hacer
+  
+  // Programación
+  scheduledAt    DateTime?
+  completedAt    DateTime?
+  
+  // Orden en la lista
+  order          Int           @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  noteVersions    NoteVersion[]
+  keyPoints       KeyPoint[]    // Puntos extraídos de esta reunión
+
+  @@map("meetings")
+}
+
+// Versión de notas de una reunión (historial)
+model NoteVersion {
+  id        String   @id @default(cuid())
+  meetingId String
+  meeting   Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  
+  // Versión
+  version   Int      // 1, 2, 3...
+  content   String   @db.Text
+  
+  // Metadata
+  createdAt DateTime @default(now())
+  
+  // Puntos extraídos de esta versión específica
+  keyPoints KeyPoint[]
+
+  @@unique([meetingId, version])
+  @@map("note_versions")
+}
+
+// Punto clave extraído (global del proyecto o de reunión específica)
+model KeyPoint {
+  id             String       @id @default(cuid())
+  consultationId String
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  
+  // Origen del punto
+  meetingId      String?      // null = punto global / inicial
+  meeting        Meeting?     @relation(fields: [meetingId], references: [id])
+  noteVersionId  String?      // De qué versión de notas se extrajo
+  noteVersion    NoteVersion? @relation(fields: [noteVersionId], references: [id])
+  
+  // Contenido
+  description    String       @db.Text
+  department     Department   @default(OTRO)
+  priority       Int          @default(0)  // 0=normal, 1=alta, 2=crítica
+  
+  // Estado del punto
+  status         PointStatus  @default(PENDIENTE)
+  
+  // Matching con producto
+  suggestedProductId String?
+  suggestedProduct   SuggestedProduct? @relation(fields: [suggestedProductId], references: [id])
+  matchConfidence    Float?    // 0-1
+  
+  // Validación del usuario
+  isValidated    Boolean      @default(false)
+  isRejected     Boolean      @default(false)
+  
+  // Si es una incógnita (sin producto en catálogo)
+  isUnknown      Boolean      @default(false)
+  estimatedPrice Decimal?     @db.Decimal(10, 2)
+  userAdjustedPrice Decimal?  @db.Decimal(10, 2)
+  
+  // Metadata IA
+  aiConfidence   Float?
+  aiReasoning    String?      @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("key_points")
+}
+
+// Producto sugerido por el sistema de matching
+model SuggestedProduct {
+  id             String       @id @default(cuid())
+  consultationId String
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  
+  // Producto del catálogo
+  productId      String
+  product        Product      @relation(fields: [productId], references: [id])
+  
+  // Razón del match
+  matchReason    String       @db.Text  // Por qué se sugiere este producto
+  confidence     Float        // 0-1
+  
+  // Puntos que cubre este producto
+  keyPoints      KeyPoint[]
+  
+  // Estado
+  isValidated    Boolean      @default(false)
+  isRejected     Boolean      @default(false)
+  rejectionReason String?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([consultationId, productId])  // Un producto solo una vez por consulta
+  @@map("suggested_products")
+}
+
+// ============================================
+// INVESTIGACIÓN DE INCÓGNITAS
+// ============================================
+
+// Investigación de incógnitas (productos desconocidos)
+model UnknownInvestigation {
+  id             String       @id @default(cuid())
+  consultationId String
+  consultation   Consultation @relation(fields: [consultationId], references: [id], onDelete: Cascade)
+  
+  // Punto clave relacionado
+  keyPointId     String
+  
+  // Qué se investigó
+  searchQuery    String       @db.Text
+  
+  // Resultados de la investigación
+  findings       Json?        // Información encontrada
+  sources        Json?        // URLs de fuentes
+  
+  // Estimación generada
+  estimatedPrice Decimal?     @db.Decimal(10, 2)
+  priceReasoning String?      @db.Text
+  
+  // Estado
+  isReviewed     Boolean      @default(false)
+  userNotes      String?      @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("unknown_investigations")
+}
+
+// ============================================
+// TRAZABILIDAD
+// ============================================
+
+// Trazabilidad de acciones IA
+model AIAction {
+  id        String   @id @default(cuid())
+  type      String   // Tipo de acción: classify, normalize, match, investigate, etc.
+  input     Json
+  output    Json
+  model     String
+  tokens    Int?
+  duration  Int?     // Duración en ms
+  createdAt DateTime @default(now())
+
+  clientId String?
+  client   Client? @relation(fields: [clientId], references: [id])
+  budgetId String?
+  budget   Budget? @relation(fields: [budgetId], references: [id])
+
+  @@map("ai_actions")
+}
