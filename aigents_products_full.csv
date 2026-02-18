@@ -1,0 +1,849 @@
+﻿. Product #,Name,Internal Reference,Product Category,Product Type,Sales Price,Sales Price (raw),Cost,Cost (raw),Can be Sold,Can be Purchased,Sales Taxes,Invoicing Policy,Unit of Measure,Sales Description,Internal Description
+1,Config Webhook Typeform,INT-TYPEFORM,Services > Integraciones,Service,80.0,80.00€,35.0,35.00€,True,False,21% IVA (venta),Cantidad entregada (ordered quantities),Unidad (formulario),"Configuración de webhook en formulario Typeform.
+  Incluye:
+- Acceso y configuración del webhook
+- Configuración del endpoint receptor
+- Mapeo de campos del formulario
+- Testing con envío de prueba
+  Tiempo estimado: 30 minutos
+Precio por formulario adicional: 80€","Tiempo real: 30 min
+Coste interno: 35€
+Markup: 2.2x"
+2,Conexión Google Sheets,INT-SHEETS,Services > Integraciones,Service,100.0,100.00€,47.0,47.00€,True,False,21% IVA,Cantidad entregada,Unidad (hoja),"Conexión a hoja de Google Sheets para lectura/escritura.
+  Incluye:
+- Setup OAuth o Service Account
+- Configuración de permisos
+- Mapeo de columnas
+- Testing de lectura y escritura
+  Tiempo estimado: 40 minutos
+Precio por hoja adicional: 100€","Tiempo real: 40 min (0.67h)
+Coste interno: 47€
+Markup: 2.2x"
+3,Setup WhatsApp Business API,INT-WHATSAPP,Services > Integraciones,Service,450.0,450.00€,210.0,210.00€,True,False,21% IVA,Cantidad entregada,Unidad (setup único por cliente),"Configuración completa de WhatsApp Business API.
+  Incluye:
+- Creación de cuenta WhatsApp Business
+- Verificación y permisos Meta
+- Configuración de webhooks
+- Setup de templates iniciales (2 templates)
+- Testing de envío y recepción
+  Tiempo estimado: 3 horas
+  Templates adicionales: 30€ cada uno
+Solo un setup por cliente (no se repite)","Tiempo real: 3h
+Coste interno: 210€
+Markup: 2.2x
+Nota: Templates extra a 30€ c/u"
+4,Conexión API Odoo (por módulo),INT-ODOO,Services > Integraciones,Service,280.0,280.00€,126.0,126.00€,True,False,21% IVA,Cantidad entregada,Unidad (módulo),"Conexión a módulo específico de Odoo vía XML-RPC.
+  Incluye:
+- Setup autenticación XML-RPC
+- Configuración de permisos y accesos
+- Mapeo de campos del módulo
+- Testing de operaciones CRUD
+  Módulos disponibles: CRM, Ventas, Contabilidad, Proyectos, etc.
+  Tiempo estimado: 1.8 horas
+Precio por módulo adicional: 280€","Tiempo real: 1.8h
+Coste interno: 126€
+Markup: 2.2x"
+5,Config Email SMTP/IMAP,INT-EMAIL,Services > Integraciones,Service,120.0,120.00€,52.5,52.50€,True,False,21% IVA,Cantidad entregada,Unidad (cuenta),"Configuración de cuenta de email para automatizaciones.
+  Incluye:
+- Configuración OAuth o App Password
+- Setup SMTP/IMAP endpoints
+- Configuración de filtros y reglas
+- Testing de envío y recepción
+  Compatible con: Gmail, Outlook, otros
+  Tiempo estimado: 45 minutos
+Precio por cuenta adicional: 120€","Tiempo real: 45 min (0.75h)
+Coste interno: 52.5€
+Markup: 2.2x"
+6,Integración API REST Estándar,INT-API-REST,Services > Integraciones,Service,280.0,280.00€,126.0,126.00€,True,False,21% IVA,Cantidad entregada,Unidad (API),"Integración con API REST estándar de terceros.
+  Incluye:
+- Análisis de documentación API
+- Setup autenticación (API key/OAuth)
+- Implementación de primeras llamadas
+- Manejo de errores básico
+- Testing
+  Aplica a APIs con documentación clara y autenticación estándar.
+  APIs complejas (GraphQL, webhooks bidireccionales): cotización aparte
+  Tiempo estimado: 1.8 horas","Tiempo real: 1.8h
+Coste interno: 126€
+Markup: 2.2x
+Nota: APIs complejas desde 500€"
+7,Setup Make/n8n/Zapier,INT-PLATFORM,Services > Integraciones,Service,80.0,80.00€,35.0,35.00€,True,False,21% IVA,Cantidad entregada,Unidad (plataforma),"Configuración inicial de plataforma de automatización.
+  Incluye:
+- Creación de cuenta y workspace
+- Setup de autenticaciones iniciales
+- Primer workflow de prueba
+  Plataformas soportadas: Make, n8n, Zapier
+  Tiempo estimado: 30 minutos
+  Nota: Los workflows individuales se cobran según complejidad","Tiempo real: 30 min (0.5h)
+Coste interno: 35€
+Markup: 2.2x"
+8,Integración OneDrive,INT-ONEDRIVE,Services > Integraciones,Service,120.0,120.00€,53.0,53.00€,True,False,21% IVA,Cantidad entregada,Unidad (integración),"Conexión con Microsoft OneDrive para gestión de archivos.
+  Incluye:
+- Autenticación OAuth2 con Microsoft
+- Lectura de archivos y carpetas
+- Escritura y actualización de archivos
+- Gestión de permisos básicos
+  Casos de uso:
+- Guardar archivos adjuntos automáticamente
+- Leer documentos para procesamiento
+- Sincronización de archivos
+  Compatible con: OneDrive Personal y OneDrive for Business
+  Tiempo estimado: 45 minutos
+  Ejemplo: Guardar facturas recibidas por email en carpeta OneDrive","Tiempo real: 45 min (0.75h)
+Coste interno: 53€
+Markup: 2.2x
+API: Microsoft Graph API
+Caso real: Opp ganada Outlook-OneDrive-Odoo (950€)"
+9,Integración Google Drive,INT-GDRIVE,Services > Integraciones,Service,120.0,120.00€,53.0,53.00€,True,False,21% IVA,Cantidad entregada,Unidad (integración),"Conexión con Google Drive para gestión de archivos.
+  Incluye:
+- Autenticación OAuth2 con Google
+- Lectura de archivos y carpetas
+- Escritura y actualización de archivos
+- Gestión de permisos compartidos
+  Casos de uso:
+- Guardar archivos automáticamente
+- Leer documentos para procesamiento
+- Backup automático
+- Compartir archivos con equipos
+  Compatible con: Google Drive personal y Workspace
+  Tiempo estimado: 45 minutos
+  Nota: Diferente de Google Sheets (que es para hojas de cálculo)","Tiempo real: 45 min (0.75h)
+Coste interno: 53€
+Markup: 2.2x
+API: Google Drive API v3"
+10,Integración Outlook/Microsoft 365,INT-OUTLOOK-M365,Services > Integraciones,Service,150.0,150.00€,70.0,70.00€,True,False,21% IVA,Cantidad entregada,Unidad (integración),"Integración específica para Outlook corporativo y Microsoft 365.
+  Incluye:
+- Autenticación OAuth2 con tenant de Azure AD
+- Gestión de emails (leer, enviar, archivar)
+- Acceso a calendario y eventos
+- Gestión de contactos
+- Permisos delegados o aplicación
+  Casos de uso:
+- Automatización de bandeja de entrada
+- Procesamiento de emails con adjuntos
+- Sincronización con CRM
+- Notificaciones de eventos
+  Tiempo estimado: 1 hora
+  Diferencia con 'Config Email': Este incluye OAuth corporativo,
+calendario, contactos y permisos avanzados M365
+  Ejemplo: Leer facturas de Outlook, guardar en OneDrive, crear en Odoo","Tiempo real: 1h
+Coste interno: 70€
+Markup: 2.1x
+API: Microsoft Graph API (Mail, Calendar, Contacts)
+Caso real: Opp ganada Outlook-OneDrive-Odoo (950€)"
+11,Setup Chatbot Web,INT-CHATBOT,Services > Integraciones,Service,800.0,800.00€,350.0,350.00€,True,False,21% IVA,Cantidad entregada,Unidad (setup),"Configuración inicial de chatbot en sitio web.
+  Incluye:
+- Selección y configuración de plataforma (Voiceflow, Botpress, o custom)
+- Diseño de flujo conversacional básico (3-5 interacciones)
+- Integración en sitio web (widget o iframe)
+- Configuración de estilos y branding
+- Pruebas iniciales
+  Plataformas soportadas:
+- Voiceflow (recomendado)
+- Botpress
+- Custom (React, HTML/JS)
+  NO incluye:
+- Lógica de IA avanzada (se cotiza aparte)
+- Integraciones con backend (se añaden según componente)
+- Mantenimiento posterior
+  Tiempo estimado: 4-5 horas
+  Ideal para: Atención cliente básica, pre-venta, FAQ automatizado
+  Ejemplo: Chatbot que pregunta por servicio de interés y deriva a WhatsApp","Tiempo real: 4-5h
+Coste interno: 350€
+Markup: 2.3x
+Casos reales: BEBEPOLIS (1.500€), HANOK AGENCY (4.000€)
+Nota: Suele ir con Clasificador IA + Generador IA"
+12,Setup Chatwoot,INT-CHATWOOT,Services > Integraciones,Service,400.0,400.00€,175.0,175.00€,True,False,21% IVA,Cantidad entregada,Unidad (setup),"Configuración de Chatwoot para gestión de conversaciones multicanal.
+  Incluye:
+- Instalación de Chatwoot (cloud o self-hosted)
+- Configuración de workspace y usuarios
+- Conexión de primer canal (WhatsApp, Email, Web)
+- Configuración de bandeja de entrada
+- Setup de respuestas rápidas básicas
+- Pruebas de envío y recepción
+  Chatwoot permite:
+- Gestionar conversaciones de múltiples canales en un solo lugar
+- Asignar conversaciones a agentes
+- Ver historial completo de conversaciones
+- Integrar con WhatsApp (Evolution API, oficial, etc.)
+  Canales adicionales: 100€ cada uno
+  Tiempo estimado: 2-3 horas
+  Ideal para: Equipos que gestionan chats de WhatsApp, email y web
+  Ejemplo: Gestionar todos los chats de WhatsApp del agente IA en una bandeja","Tiempo real: 2.5h
+Coste interno: 175€
+Markup: 2.3x
+Caso real: InvestLeading - Agente WhatsApp (1.500€ incluía Chatwoot)
+Nota: Suele ir con Evolution API para WhatsApp"
+13,Integración Calendario (Calendly/Google Calendar),INT-CALENDAR,Services > Integraciones,Service,150.0,150.00€,70.0,70.00€,True,False,21% IVA,Cantidad entregada,Unidad (integración),"Integración con calendario para reservas automáticas.
+  Incluye:
+- Configuración de webhooks del calendario
+- Lectura de disponibilidad en tiempo real
+- Creación automática de eventos
+- Configuración de confirmaciones
+- Testing de flujo completo
+  Plataformas soportadas:
+- Calendly
+- Google Calendar
+- Microsoft Outlook Calendar
+- Cal.com
+  Casos de uso:
+- Agendar citas desde chatbot o formulario
+- Enviar link de reserva por WhatsApp
+- Crear eventos automáticamente tras lead calificado
+- Sincronizar reservas con CRM
+  Tiempo estimado: 1 hora
+  Ejemplo: Chatbot IA envía link de Calendly cuando lead está interesado","""Tiempo real: 1h
+Coste interno: 70€
+Markup: 2.1x
+Caso real: InvestLeading - Agente WhatsApp incluía integración calendario
+API: Calendly/Google Calendar API""
+🤖 CATEGORÍA: COMPONENTES IA"
+14,Clasificador IA Básico (2-5 categorías),IA-CLASIF-BASIC,Services > Componentes IA,Service,540.0,540.00€,245.0,245.00€,True,False,21% IVA,Cantidad entregada,Unidad (clasificador),"Clasificador inteligente con IA para categorizar datos.
+  Incluye:
+- Definición de 2-5 categorías con cliente
+- Diseño de prompts optimizados
+- Testing con 20-30 casos reales
+- Ajustes y refinamiento
+- Validación final
+  Ejemplos de uso:
+- Clasificar leads: frío/templado/caliente
+- Clasificar tickets: urgente/normal/bajo
+- Clasificar emails: ventas/soporte/spam
+  Tiempo estimado: 3.5 horas
+  Para más de 5 categorías usar 'Clasificador Avanzado'","Tiempo real: 3.5h
+Coste interno: 245€
+Markup: 2.2x
+Incluye costes API OpenAI/Claude (aprox 20€)"
+15,Clasificador IA Avanzado (6-20 categorías),IA-CLASIF-ADV,Services > Componentes IA,Service,1450.0,"1,450.00€",665.0,665.00€,True,False,21% IVA,Cantidad entregada,Unidad (clasificador),"Clasificador IA avanzado para categorización compleja.
+  Incluye:
+- Definición de 6-20 categorías con criterios detallados
+- Diseño de prompts complejos multi-nivel
+- Testing exhaustivo (50-100 casos)
+- Fine-tuning y ajustes
+- Validación y documentación completa
+  Ejemplos de uso:
+- Clasificar productos en 15 categorías
+- Triaje de tickets complejos
+- Análisis de sentimiento multi-clase
+  Tiempo estimado: 9.5 horas","Tiempo real: 9.5h
+Coste interno: 665€
+Markup: 2.2x
+Incluye costes API (aprox 50€)"
+16,Extractor de Datos Estructurados,IA-EXTRACTOR,Services > Componentes IA,Service,690.0,690.00€,315.0,315.00€,True,False,21% IVA,Cantidad entregada,Unidad (tipo de documento),"Extractor IA para obtener campos específicos de texto o documentos.
+  Incluye:
+- Definición de campos a extraer
+- Diseño de prompts de extracción
+- Testing con documentos reales
+- Manejo de edge cases
+- Validación y documentación
+  Ejemplos de uso:
+- Extraer: nombre, email, teléfono de formularios
+- Extraer: fecha, importe, proveedor de facturas
+- Extraer: skills, experiencia de CVs
+  Tiempo estimado: 4.5 horas
+Precio por tipo de documento adicional: 690€","Tiempo real: 4.5h
+Coste interno: 315€
+Markup: 2.2x
+Incluye costes API (aprox 30€)"
+17,Generador de Texto IA (emails/mensajes),IA-GENERATOR,Services > Componentes IA,Service,540.0,540.00€,245.0,245.00€,True,False,21% IVA,Cantidad entregada,Unidad (tipo de texto),"Generador IA de textos personalizados.
+  Incluye:
+- Definición de tono y estilo con cliente
+- Creación de templates y prompts
+- Testing con casos reales
+- Ajustes de personalización
+  Ejemplos de uso:
+- Generar emails de seguimiento comercial
+- Generar mensajes WhatsApp personalizados
+- Generar descripciones de productos
+  Tiempo estimado: 3.5 horas
+Precio por tipo de texto adicional: 540€","Tiempo real: 3.5h
+Coste interno:  245€
+Markup: 2.2x
+Incluye costes API (aprox 20€)"
+18,OCR Básico (texto plano),IA-OCR-BASIC,Services > Componentes IA,Service,420.0,420.00€,189.0,189.00€,True,False,21% IVA,Cantidad entregada,Unidad (tipo de documento),"OCR para extracción de texto plano de documentos.
+  Incluye:
+- Selección de herramienta OCR óptima
+- Configuración y conexión
+- Testing con documentos muestra
+- Ajustes de precisión
+  Tipos de documento soportados:
+- PDFs con texto
+- Imágenes de documentos
+- Escaneos de calidad media-alta
+  Tiempo estimado: 2.7 horas
+Precio por tipo de documento adicional: 420€","Tiempo real: 2.7h
+Coste interno: 189€
+Markup: 2.2x
+Incluye costes API OCR (aprox 20€)"
+19,"OCR Avanzado (tablas, estructura compleja)",IA-OCR-ADV,Services > Componentes IA,Service,850.0,850.00€,385.0,385.00€,True,False,21% IVA,Cantidad entregada,Unidad (tipo de documento),"OCR avanzado para documentos con estructura compleja.
+  Incluye:
+- Análisis de estructura del documento
+- Configuración de extracción compleja (tablas, secciones)
+- Testing exhaustivo
+- Validación y ajustes
+  Ideal para:
+- Facturas con líneas de detalle
+- Contratos multi-página
+- Documentos con tablas y gráficos
+  Tiempo estimado: 5.5 horas
+Precio por tipo de documento adicional: 850€","""Tiempo real: 5.5h
+Coste interno: 385€
+Markup: 2.2x
+Incluye costes API OCR avanzado (aprox 40€)""
+🔄 CATEGORÍA: FLUJOS"
+20,Flujo Lineal Simple (A→B→C),FLOW-LINEAR,Services > Flujos,Service,260.0,260.00€,119.0,119.00€,True,False,21% IVA,Cantidad entregada,Unidad (flujo),"Flujo de automatización lineal simple.
+  Incluye:
+- Diseño del flujo en plataforma
+- Configuración de trigger
+- Configuración de 2-3 acciones secuenciales
+- Testing
+- Documentación básica
+  Ejemplo:
+- Nuevo lead en form → Guardar en CRM → Email a comercial
+  Tiempo estimado: 1.7 horas
+Precio por flujo adicional: 260€","Tiempo real: 1.7h
+Coste interno: 119€
+Markup: 2.2x"
+21,Flujo Condicional (if/else),FLOW-CONDITIONAL,Services > Flujos,Service,510.0,510.00€,231.0,231.00€,True,False,21% IVA,Cantidad entregada,Unidad (flujo),"Flujo con bifurcaciones condicionales.
+  Incluye:
+- Diseño de lógica condicional
+- Configuración de condiciones
+- Configuración de rutas alternativas
+- Testing de múltiples escenarios
+- Documentación
+  Ejemplo:
+- Si lead caliente → WhatsApp urgente
+- Si lead frío → Email nurturing
+  Tiempo estimado: 3.3 horas
+Precio por flujo adicional: 510€","Tiempo real: 3.3h
+Coste interno: 231€
+Markup: 2.2x"
+22,"Flujo Complejo (multi-rama, loops)",FLOW-COMPLEX,Services > Flujos,Service,1400.0,"1,400.00€",630.0,630.00€,True,False,21% IVA,Cantidad entregada,Unidad (flujo),"Flujo con lógica compleja multi-rama y loops.
+  Incluye:
+- Diseño de arquitectura del flujo
+- Implementación de lógica compleja
+- Manejo de errores y reintentos
+- Testing exhaustivo de casos
+- Documentación completa
+  Ejemplos de uso:
+- Sistema de nurturing con 3 ramas + loops de reclasificación
+- Triaje de tickets con múltiples decisiones y escalados
+- Procesamiento de documentos con reintentos y validaciones
+  Tiempo estimado: 9 horas","""Tiempo real: 9h
+Coste interno: 630€
+Markup: 2.2x
+Nota: Este tipo de flujo requiere arquitectura bien pensada""
+📢 CATEGORÍA: NOTIFICACIONES"
+23,Canal Slack/Telegram,NOTIF-SLACK-TG,Services > Notificaciones,Service,120.0,120.00€,52.5,52.50€,True,False,21% IVA,Cantidad entregada,Unidad (canal),"Configuración de canal de notificaciones Slack o Telegram.
+  Incluye:
+- Creación de bot/app
+- Configuración de permisos
+- Setup del canal
+- Testing de mensajes
+  Tiempo estimado: 45 minutos
+Precio por canal adicional: 120€","Tiempo real: 45 min (0.75h)
+Coste interno: 52.5€
+Markup: 2.2x"
+24,Template Email Automático,NOTIF-EMAIL,Services > Notificaciones,Service,80.0,80.00€,35.0,35.00€,True,False,21% IVA,Cantidad entregada,Unidad (template),"Template de email personalizado para automatizaciones.
+  Incluye:
+- Diseño del template
+- Configuración de variables dinámicas
+- Testing de envío
+  Compatible con HTML y texto plano
+  Tiempo estimado: 30 minutos
+Precio por template adicional: 80€","Tiempo real: 30 min (0.5h)
+Coste interno: 35€
+Markup: 2.2x"
+25,Template WhatsApp,NOTIF-WHATSAPP,Services > Notificaciones,Service,120.0,120.00€,52.5,52.50€,True,False,21% IVA,Cantidad entregada,Unidad (template),"Template de WhatsApp Business (requiere aprobación Meta).
+  Incluye:
+- Diseño del template según políticas Meta
+- Envío para aprobación
+- Configuración tras aprobación
+- Testing
+  Nota: Aprobación Meta puede tardar 24-48h
+  Tiempo estimado: 45 minutos
+Precio por template adicional: 120€","Tiempo real: 45 min (0.75h)
+Coste interno: 52.5€
+Markup: 2.2x
+Nota: Tiempo no incluye espera aprobación Meta"
+26,Template SMS,NOTIF-SMS,Services > Notificaciones,Service,100.0,100.00€,45.0,45.00€,True,False,21% IVA,Cantidad entregada,Unidad (template),"Template de SMS para notificaciones automáticas.
+  Incluye:
+- Diseño del mensaje (máx 160 caracteres)
+- Configuración de variables
+- Setup proveedor SMS
+- Testing
+  Nota: Costes de envío SMS no incluidos (según proveedor)
+  Tiempo estimado: 30 minutos","""Tiempo real: 30 min (0.5h)
+Coste interno: 45€
+Markup: 2.2x""
+💼 CATEGORÍA: SERVICIOS PROFESIONALES"
+27,Discovery Session,SRV-DISCOVERY,Services > Servicios Profesionales,Service,0.0,0.00€ (o 250€ si no contrata),105.0,105.00€,True,False,21% IVA,Cantidad entregada,Unidad (sesión),"Sesión de descubrimiento para entender necesidades del cliente.
+  Incluye:
+- Reunión de 60 minutos
+- Análisis de necesidades
+- Evaluación de viabilidad técnica
+- Propuesta personalizada con componentes y precio
+  GRATIS si el cliente contrata el proyecto
+250€ si no contrata (se descuenta si contrata dentro de 30 días)
+  Duración: 1-1.5 horas","Tiempo real: 1.5h (incluye prep + reunión + propuesta)
+Coste interno: 105€
+Política: Gratis si contrata, 250€ si no"
+28,Consultoría de Procesos,SRV-CONSULTORIA,Services > Servicios Profesionales,Service,4200.0,"4,200.00€",4200.0,"4,200.00€",True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Consultoría completa de análisis y rediseño de procesos (3 semanas).
+  Incluye:
+ Módulo 1: Análisis & Entrevistas
+ Módulo 2: Auditoría de Sistemas y Procesos
+ Módulo 3: Diseño TO-BE
+ Módulo 4: Roadmap 90 días y Cierre
+  Entregables:
+- Radiografía AS-IS completa
+- Mapas BPMN TO-BE
+- Tabla de Automatizaciones con ROI
+- Fichas técnicas de implementación
+- Roadmap 90 días priorizado
+- Backlog operativo
+  Duración: 3 semanas
+Ver detalles en: consultoria.md","Tiempo real: 60h (3 semanas × 20h)
+Coste interno: 4.200€
+Markup: 0% (loss leader o subir a 5.500€)
+Ref: consultoria.md"
+29,Análisis Técnico Detallado,SRV-ANALISIS-TEC,Services > Servicios Profesionales,Service,1000.0,"1,000.00€",420.0,420.00€,True,False,21% IVA,Cantidad entregada,Unidad (análisis),"Análisis técnico profundo para proyectos complejos.
+  Incluye:
+- Análisis de APIs disponibles
+- Pruebas de viabilidad técnica
+- Definición de arquitectura
+- Estimación detallada de componentes
+- Documento técnico completo
+  Ideal para proyectos donde no está claro qué componentes usar.
+  Duración: 1-3 días (6 horas)","Tiempo real: 6h
+Coste interno: 420€
+Markup: 2.5x"
+30,Hora de Desarrollo,SRV-HORA-DEV,Services > Servicios Profesionales,Service,100.0,100.00€,70.0,70.00€,True,False,21% IVA,Tiempo gastado (timesheet),Hora,"Hora de desarrollo o implementación.
+  Uso:
+- Desarrollo custom que no es componente estándar
+- Implementación de componentes
+- Ajustes y modificaciones
+- Integraciones complejas
+  Precio por hora: 100€
+  Se factura según tiempo real registrado en timesheets.","Coste interno: 70€/h
+Markup: 1.4x
+Facturación: según timesheet real"
+31,Testing Básico,SRV-TEST-BASIC,Services > Servicios Profesionales,Service,450.0,450.00€,210.0,210.00€,True,False,21% IVA,Cantidad entregada,Unidad (testing),"Testing básico de automatizaciones.
+  Incluye:
+- Testing de casos felices (happy paths)
+- Validación con datos reales (20-30 casos)
+- Documentación de bugs encontrados
+- Corrección de errores críticos
+  Duración: 3 horas","Tiempo real: 3h
+Coste interno: 210€
+Markup: 2.2x"
+32,Testing Completo,SRV-TEST-FULL,Services > Servicios Profesionales,Service,900.0,900.00€,420.0,420.00€,True,False,21% IVA,Cantidad entregada,Unidad (testing),"Testing exhaustivo con edge cases.
+  Incluye:
+- Testing de casos felices
+- Testing de edge cases y errores
+- Validación con datos reales (50-100 casos)
+- QA completo
+- Documentación detallada de bugs
+- Corrección de todos los errores
+  Duración: 6 horas","Tiempo real: 6h
+Coste interno: 420€
+Markup: 2.2x"
+33,Documentación de Usuario,SRV-DOCS,Services > Servicios Profesionales,Service,300.0,300.00€,140.0,140.00€,True,False,21% IVA,Cantidad entregada,Unidad (documentación),"Documentación completa para usuarios finales.
+  Incluye:
+- Guías paso a paso
+- Screenshots y diagramas
+- FAQs básicas
+- Entrega en PDF o Notion
+  Opción: Videos tutoriales (+200€)
+  Duración: 2 horas","Tiempo real: 2h
+Coste interno: 140€
+Markup: 2.2x
+Videos: +2h adicionales"
+34,Formación Equipo Cliente,SRV-TRAINING,Services > Servicios Profesionales,Service,500.0,500.00€,210.0,210.00€,True,False,21% IVA,Cantidad entregada,Unidad (sesión),"Sesión de formación hands-on para el equipo del cliente.
+  Incluye:
+- Sesión práctica de 2-3 horas
+- Q&A
+- Material de apoyo
+- Grabación de la sesión (opcional)
+  Presencial (Madrid): sin coste adicional
+Online: sin coste adicional
+Presencial fuera Madrid: +gastos desplazamiento
+  Duración: 2-3 horas","Tiempo real: 3h (incluye prep + sesión)
+Coste interno: 210€
+Markup: 2.5x"
+35,Soporte Básico Mensual,SRV-SUPPORT-BASIC,Services > Servicios Profesionales,Service,400.0,400.00€,280.0,280.00€,True,False,21% IVA,Cantidad entregada,Mes,"Soporte mensual básico para automatizaciones.
+  Incluye:
+- Monitoreo de automatizaciones
+- Corrección de bugs
+- Actualizaciones menores
+- Soporte por email (respuesta en 48h)
+- Hasta 4 horas de trabajo/mes incluidas
+  NO incluye:
+- Nuevas funcionalidades
+- Cambios de alcance
+- Soporte urgente
+  Facturación mensual recurrente","Tiempo incluido: 4h/mes
+Coste interno: 280€/mes
+Markup: 1.5x
+Tipo: Recurrente mensual"
+36,Soporte Premium Mensual,SRV-SUPPORT-PREM,Services > Servicios Profesionales,Service,1000.0,"1,000.00€",700.0,700.00€,True,False,21% IVA,Cantidad entregada,Mes,"Soporte mensual premium con prioridad.
+  Incluye TODO del Básico +
+- Soporte prioritario (respuesta en 4h)
+- Hasta 10 horas de trabajo/mes incluidas
+- Mejoras menores incluidas
+- Reunión mensual de revisión
+- Soporte por WhatsApp/Slack
+  Ideal para clientes con automatizaciones críticas.
+  Facturación mensual recurrente","""Tiempo incluido: 10h/mes
+Coste interno: 700€/mes
+Markup: 1.5x
+Tipo: Recurrente mensual""
+🎁 CATEGORÍA: PAQUETES"
+37,Piloto de Validación,PKG-PILOTO,Services > Paquetes,Service,950.0,950.00€,1400.0,"1,400.00€ (suma componentes con descuento)",True,False,21% IVA,Cantidad entregada,Unidad (piloto),"Piloto de validación técnica para automatizaciones.
+  INCLUYE:
+✓ Discovery Session (gratis)
+✓ Hasta 2 integraciones (~300€)
+✓ 1 flujo simple o condicional (~500€)
+✓ 1 componente IA básico (~540€)
+✓ Testing con datos reales (~450€)
+✓ Documentación básica (~300€)
+✓ Demo funcional
+  NO INCLUYE:
+✗ Más de 2 integraciones
+✗ Más de 1 flujo
+✗ Componentes IA avanzados
+✗ Formación
+✗ Soporte post-entrega
+  POLÍTICA DE AMPLIACIÓN:
+- Componente adicional: precio componente + 20%
+- Flujo adicional: precio flujo + 20%
+- Cambio mayor: nueva propuesta
+  OUTPUT:
+- Demo funcional con 1 caso de uso
+- Propuesta de Desarrollo completo (con desglose)
+  Plazo: 1 semana
+  Valor real componentes: 2.280€
+Precio paquete: 950€ (58% descuento)
+  Ideal para: Validar viabilidad antes de proyecto completo","Suma componentes: 2.280€
+Precio venta: 950€
+Loss leader: -58%
+Objetivo: Atraer y validar para vender proyecto completo"
+38,Automatización Completa Básica,PKG-AUTO-BASIC,Services > Paquetes,Service,2500.0,"2,500.00€",3000.0,"3,000.00€",True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Automatización completa lista para producción.
+  INCLUYE:
+✓ Discovery Session
+✓ Hasta 3 integraciones (~600€)
+✓ Hasta 3 flujos (mixtos) (~1.500€)
+✓ Hasta 2 componentes IA básicos (~1.080€)
+✓ Testing completo (~900€)
+✓ Documentación completa (~600€)
+✓ 1 sesión de formación (~500€)
+✓ 1 mes soporte básico (~400€)
+  Ejemplos de uso:
+- Lead capture + clasificación + nurturing
+- Automatización completa de onboarding
+- Sistema de triaje de tickets
+  POLÍTICA DE AMPLIACIÓN:
+- Componente adicional: precio + 15%
+- Flujo adicional: precio + 15%
+  Plazo: 2-3 semanas
+  Valor real: 4.960€
+Precio paquete: 2.500€ (50% descuento)","Suma componentes: 4.960€
+Precio venta: 2.500€
+Descuento: -50%
+Rentable si componentes reutilizables"
+39,Agente IA Básico,PKG-AGENT-BASIC,Services > Paquetes,Service,4500.0,"4,500.00€",5500.0,"5,500.00€",True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Agente IA completo con múltiples capacidades.
+  INCLUYE:
+✓ Análisis Técnico Detallado (~1.000€)
+✓ Hasta 4 integraciones (~800€)
+✓ Hasta 5 flujos (~2.500€)
+✓ Hasta 3 componentes IA (~1.620€)
+✓ Testing exhaustivo (~900€)
+✓ Documentación completa (~600€)
+✓ 2 sesiones de formación (~1.000€)
+✓ 2 meses soporte básico (~800€)
+  Ejemplos:
+- Agente clasificador + nurturing multicanal
+- Agente de atención al cliente con IA
+- Sistema completo de automatización ventas
+  POLÍTICA DE AMPLIACIÓN:
+- Componente adicional: precio + 10%
+  Plazo: 3-4 semanas
+  Valor real: 9.020€
+Precio paquete: 4.500€ (50% descuento)","Suma componentes: 9.020€
+Precio venta: 4.500€
+Descuento: -50%"
+40,Agente IA Avanzado (Cotización),PKG-AGENT-ADV,Services > Paquetes,Service,8000.0,"8,000.00€ (base, se cotiza según alcance)",,Variable,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Agente IA avanzado con arquitectura compleja (cotización personalizada).
+  INCLUYE:
+✓ Consultoría de Procesos completa o Análisis Técnico extenso
+✓ Componentes ilimitados (según necesidad)
+✓ Flujos complejos ilimitados
+✓ Múltiples componentes IA avanzados
+✓ Arquitectura multi-canal
+✓ Testing exhaustivo + QA profesional
+✓ Documentación técnica y de usuario completa
+✓ Formación personalizada (múltiples sesiones)
+✓ 3 meses soporte premium
+  SE COTIZA SEGÚN:
+1. Lista de componentes necesarios (suma)
+2. Horas estimadas de desarrollo custom
+3. Complejidad de integración
+4. Nivel de personalización
+  FÓRMULA:
+(Suma componentes × 0.7) + (Horas custom × 100€)
+  Precio mínimo: 8.000€
+Precio típico: 12.000-20.000€
+  Plazo: 6-12 semanas","Cotización personalizada
+Base mínima: 8.000€
+Fórmula: componentes + horas custom
+Descuento volumen: -30%"
+41,Paquete Lead Automation,PKG-LEAD-AUTO,Services > Paquetes,Service,2200.0,"2,200.00€",980.0,980.00€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Automatización completa de captación y cualificación de leads.
+  INCLUYE:
+✓ Integración Typeform o Google Forms (80€)
+✓ Clasificador IA de leads frío/templado/caliente (540€)
+✓ Conexión CRM (Odoo u otro) (280€)
+✓ Flujo condicional según clasificación (510€)
+✓ Notificación Slack/Telegram (120€)
+✓ Testing básico (450€)
+✓ Documentación (300€)
+  FLUJO TÍPICO:
+1. Usuario llena formulario
+2. IA clasifica lead por interés/fit
+3. Lead frío → CRM (nurturing)
+4. Lead templado → CRM + Notificación equipo
+5. Lead caliente → CRM + Notificación urgente + WhatsApp
+  Valor componentes: 2.280€
+Precio paquete: 2.200€ (descuento 4%)
+  Tiempo: 1-2 semanas
+Incluye: 1 mes de soporte
+  Caso real: HUNDRA SPORTS Piloto Typeform (1.000€, 80% prob)
+  Ideal para: Empresas B2B que captan leads por formularios web","Suma componentes: 2.280€
+Precio paquete: 2.200€
+Coste interno: 980€
+Markup: 2.2x
+Caso real: Lead más mencionado (62 veces)
+Tiempo: 14h aprox"
+42,Paquete Document Intelligence,PKG-DOC-INTEL,Services > Paquetes,Service,1800.0,"1,800.00€",800.0,800.00€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Procesamiento inteligente de documentos con OCR e IA.
+  INCLUYE:
+✓ OCR básico o avanzado según tipo doc (420-850€)
+✓ Extractor de datos estructurados (690€)
+✓ Integración sistema destino (Odoo/Sheets/CRM) (100-280€)
+✓ Flujo de procesamiento (510€)
+✓ Testing básico (450€)
+✓ Documentación (300€)
+  FLUJO TÍPICO:
+1. Recepción documento (email, upload, carpeta)
+2. OCR extrae texto
+3. IA extrae datos clave (fechas, importes, nombres)
+4. Validación y estructuración
+5. Envío a sistema destino
+6. Notificación de procesamiento
+  TIPOS DE DOCUMENTOS:
+- Facturas
+- Contratos
+- Albaranes
+- DNI/Pasaportes
+- Formularios escaneados
+  Valor componentes: 1.960-2.290€
+Precio paquete: 1.800€ (descuento 8-21%)
+  Tiempo: 1-2 semanas
+Incluye: 1 mes de soporte
+  Caso real: SIMPLIFIKA CAPITAL Piloto OCR (1.000€, 55% prob)
+  Ideal para: Empresas que procesan facturas, contratos, docs repetitivos","Suma componentes: 1.960-2.290€
+Precio paquete: 1.800€
+Coste interno: 800€
+Markup: 2.25x
+Casos: 'documento' 7x, 'ocr' 3x, 'factura' 1x
+Tiempo: 11-13h"
+43,Paquete Chatbot + IA,PKG-CHATBOT-IA,Services > Paquetes,Service,3200.0,"3,200.00€",1400.0,"1,400.00€",True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Chatbot web inteligente con IA para atención automatizada.
+  INCLUYE:
+✓ Setup Chatbot Web (800€)
+✓ Clasificador IA de intenciones (540€)
+✓ Generador de respuestas IA (540€)
+✓ Integración CRM/backend (280€)
+✓ 3 flujos conversacionales (1.530€)
+✓ Testing completo (600€)
+✓ Documentación completa (300€)
+✓ Formación equipo (400€)
+  CAPACIDADES:
+- Respuestas naturales con IA (no hardcoded)
+- Clasificación automática de consultas
+- Escalado a humano cuando necesario
+- Integración con CRM para contexto
+- Múltiples flujos (FAQ, Preventas, Soporte, Cotización)
+  FLUJO TÍPICO:
+1. Usuario inicia chat en web
+2. IA identifica intención (info, compra, soporte)
+3. Responde automáticamente o deriva
+4. Guarda conversación en CRM
+5. Notifica equipo si es lead caliente
+  Valor componentes: 4.990€
+Precio paquete: 3.200€ (descuento 36%)
+  Tiempo: 2-3 semanas
+Incluye: 1 mes de soporte
+  Casos reales:
+- BEBEPOLIS Chatbot web (1.500€)
+- HANOK AGENCY Chatbot + agente IA (4.000€)
+  Ideal para: eCommerce, servicios B2C, atención cliente 24/7","Suma componentes: 4.990€
+Precio paquete: 3.200€ (descuento fuerte para competir)
+Coste interno: 1.400€
+Markup: 2.3x
+Casos: 'bot/chatbot' 8 menciones
+Tiempo: 20-24h"
+44,Paquete Email Automation,PKG-EMAIL-AUTO,Services > Paquetes,Service,1800.0,"1,800.00€",810.0,810.00€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Automatización inteligente de gestión de emails.
+  INCLUYE:
+✓ Config Email SMTP/IMAP u Outlook/M365 (120-150€)
+✓ Clasificador IA de emails (540€)
+✓ Integración CRM (280€)
+✓ 2 flujos (archivado automático + notificación) (770€)
+✓ Templates automáticos (160€)
+✓ Testing básico (450€)
+✓ Documentación (300€)
+  FLUJO TÍPICO:
+1. Email llega a bandeja
+2. IA clasifica: factura / consulta / spam / urgente
+3. Según tipo:
+- Factura → OCR + guardar en Odoo + archivar
+- Consulta → crear ticket CRM + notificar equipo
+- Urgente → notificación inmediata Slack/WhatsApp
+- Spam → archivar sin procesar
+4. Respuesta automática con template si necesario
+  CASOS DE USO:
+- Gestión automática de facturas por email
+- Triaje de consultas cliente
+- Notificación de emails importantes
+- Respuestas automáticas
+  Valor componentes: 2.320-2.350€
+Precio paquete: 1.800€ (descuento 22-23%)
+  Tiempo: 1-2 semanas
+Incluye: 1 mes de soporte
+  Caso real: Salas Granados Outlook-OneDrive-Odoo (950€, GANADO)
+  Ideal para: Empresas que reciben muchos emails operativos","Suma componentes: 2.320-2.350€
+Precio paquete: 1.800€
+Coste interno: 810€
+Markup: 2.2x
+Casos: 'email' 22 menciones
+Tiempo: 11-13h"
+45,Paquete Automatización Avanzada,PKG-AUTO-ADV,Services > Paquetes,Service,,Pendiente,,Pendiente,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Paquete de automatización avanzada (pendiente de definición de alcance, precio y componentes).","PENDIENTE: definir componentes incluidos, horas estimadas, precio de venta y coste interno."
+46,SEO Integral – Setup Inicial,MKT-SEO-SETUP,Services > Marketing & Growth,Service,2200.0,2200.00€,1000.0,1000.00€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Setup completo de estrategia SEO para crecimiento orgánico sostenible.
+
+Incluye:
+- Estudio de keywords (negocio + competencia)
+- Auditoría SEO técnica (indexación, estructura, rendimiento)
+- Optimización on-page de la web completa
+- Arquitectura de contenidos
+- Plan editorial SEO (3 meses)
+- Definición de KPIs y roadmap
+
+Objetivo: aumentar tráfico orgánico y posicionamiento.
+No incluye: link building externo.
+Duración: 2–3 semanas","Tiempo estimado: 18–20h
+Coste interno aprox: 1.000€
+Incluye consultoría + implementación + validación humana"
+47,SEO Mensual Automatizado,MKT-SEO-MONTH,Services > Marketing & Growth,Service,950.0,desde 950€/mes,470.0,470€,True,False,21% IVA,Cantidad entregada,Mes,"Ejecución continua de estrategia SEO con generación de contenidos asistida por IA y revisión humana.
+
+Incluye (plan base):
+- Creación de hasta 4 posts SEO/mes
+- Optimización continua on-page
+- Automatización publicación en WordPress
+- Revisión humana de todos los contenidos
+- Reporting mensual
+
+Escalable según: nº de posts y revisiones.","Plan base: 6–8h/mes
+Variable por nº de contenidos
+IA + revisión obligatoria"
+48,SEO Local – Setup por Ubicación,MKT-SEO-LOCAL-SETUP,Services > Marketing & Growth,Service,600.0,desde 600€,270.0,270€,True,False,21% IVA,Cantidad entregada,Unidad (ubicación),"Optimización completa de presencia local para Google.
+
+Incluye:
+- Optimización Google Business Profile
+- Categorías, servicios y FAQs
+- Configuración de publicaciones automáticas
+- Integración con web
+- Tracking básico
+
+Ideal para negocios físicos.","Tiempo estimado: 4–5h por ubicación (setup)
+Requiere acceso a Google Business Profile"
+49,SEO Local – Gestión Mensual,MKT-SEO-LOCAL-MONTH,Services > Marketing & Growth,Service,350.0,desde 350€/mes,160.0,160€,True,False,21% IVA,Cantidad entregada,Mes / Ubicación,"Gestión continua de SEO local y reputación online.
+
+Incluye:
+- Publicaciones periódicas
+- Respuestas a reseñas (borradores + revisión humana)
+- Alertas y reporting
+
+Escalable por nº de ubicaciones.","Plan base: 2–3h/mes por ubicación
+Revisión humana incluida"
+50,Embudo de Ventas Automatizado – Setup,MKT-FUNNEL-SETUP,Services > Marketing & Growth,Service,2800.0,desde 2.800€,1273.0,1273€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Diseño e implementación de embudo de ventas automatizado.
+
+Incluye:
+- Diseño estratégico del funnel
+- Landing + formularios
+- Automatizaciones (email, CRM, WhatsApp)
+- Chatbot de preventa
+- Integración calendario
+
+Opcional: Google Ads / Meta Ads.","Tiempo estimado: 20–28h según complejidad
+Puede requerir integraciones existentes del cliente"
+51,Gestión de Embudo & Optimización,MKT-FUNNEL-MONTH,Services > Marketing & Growth,Service,750.0,desde 750€/mes,340.0,340€,True,False,21% IVA,Cantidad entregada,Mes,"Optimización continua del embudo y automatizaciones.
+
+Incluye:
+- Ajustes de copy y flujos
+- Testing de conversiones
+- Reporting
+- Mejoras incrementales","Plan base: 6–8h/mes
+Enfocado a mejoras incrementales"
+52,Newsletter Engine – Setup,MKT-NEWS-SETUP,Services > Marketing & Growth,Service,1200.0,1.200€,560.0,560€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Sistema completo de newsletter automatizada.
+
+Incluye:
+- Definición de estrategia editorial
+- Setup Mailchimp / sistema custom
+- Segmentación
+- Automatizaciones
+- Templates
+
+Preparado para crecimiento.","Tiempo estimado: 10–14h
+Requiere acceso a la plataforma de email"
+53,Newsletter Mensual,MKT-NEWS-MONTH,Services > Marketing & Growth,Service,500.0,desde 500€/mes,228.0,228€,True,False,21% IVA,Cantidad entregada,Mes,"Gestión mensual de newsletter con IA + revisión humana.
+
+Incluye:
+- Calendario editorial
+- Redacción asistida por IA
+- Revisión humana
+- Envío y métricas
+
+Escalable por nº de envíos.","Plan base: 4–6h/mes
+Variable por nº de envíos"
+54,Social Media Automatizado – Setup,MKT-SOCIAL-SETUP,Services > Marketing & Growth,Service,1500.0,1.500€,682.0,682€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Definición de canales, calendario editorial y automatización de publicación.
+
+Incluye:
+- Definición de canales
+- Calendario editorial
+- Automatización de publicación
+- Guiones y copies
+- Revisión humana","Tiempo estimado: 12–16h
+Puede integrarse con herramientas existentes del cliente"
+55,Gestión Social Mensual,MKT-SOCIAL-MONTH,Services > Marketing & Growth,Service,700.0,desde 700€/mes,318.0,318€,True,False,21% IVA,Cantidad entregada,Mes,"Gestión de redes sociales mensual.
+
+Incluye:
+- X publicaciones/mes
+- Revisión humana
+- Programación
+- Reporting",Plan base: 6–10h/mes según nº de posts
+56,Sistema de Contenido en Vídeo,MKT-VIDEO-SYS,Services > Marketing & Growth,Service,1800.0,desde 1.800€,820.0,820€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto),"Sistema de generación de contenido en vídeo.
+
+Incluye:
+- Guiones de vídeo
+- Hooks y CTAs
+- Calendario
+- Automatización publicación
+- Coordinación con partner de grabación (si aplica)","Tiempo estimado: 14–18h (sin producción externa)
+Producción/rodaje con partners: coste aparte"
+57,Marketing Automation 360º,PKG-MKT-360,Services > Marketing & Growth,Service,4500.0,desde 4.500€,2000.0,2.000€,True,False,21% IVA,Cantidad entregada,Unidad (proyecto + mensual),"Sistema integral de marketing automatizado.
+
+Incluye:
+- SEO
+- Contenidos
+- Email
+- Funnels
+- Social
+- Reporting
+
+Pensado para empresas que quieren crecer sin fricción.","Proyecto + plan mensual (retainer) recomendado
+Coste y alcance variable por cliente"
